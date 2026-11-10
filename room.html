@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#194b3a">
+  <meta name="description" content="Build your first night at Cal Poly. Customize essentials and see them come to life in an interactive 3D dorm room.">
+  <title>Dorm Drop SLO — Room Lab</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=5">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./products.css">
+  <link rel="stylesheet" href="./room-polish.css">
+  <script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('room-embedded');if(new URLSearchParams(location.search).get('poster')==='1')document.documentElement.classList.add('room-poster');</script>
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="./" aria-label="Dorm Drop SLO home"><span class="brand-icon" aria-hidden="true"><img src="./assets/dorm-drop-mark.svg" alt="" width="36" height="36"></span><span>Dorm Drop <small>SLO</small></span></a>
+    <div class="header-mid"><span class="live-dot"></span>YOUR ROOM, YOUR WAY</div>
+    <button class="text-button" id="reset-button"><span aria-hidden="true">↺</span> Start over</button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><div class="eyebrow">THE ROOM LAB <span>/</span> CONCEPT PROTOTYPE</div><h1>A little room.<br class="mobile-break"> A fresh start.</h1><p>Pick your essentials. Find your colors. See it all come together.</p></div>
+      <div class="intro-note"><span class="mini-cube" aria-hidden="true">◇</span><span>Made for your<br><strong>first night & beyond.</strong></span></div>
+    </section>
+
+    <div class="workspace">
+      <section class="room-panel" aria-label="Interactive room preview">
+        <div class="room-topline"><div class="room-mode" role="group" aria-label="Cal Poly housing type"><button data-room="cerro" aria-label="Cerro Vista apartment room" aria-pressed="true"><strong>Cerro Vista</strong><small>Apartment bedroom</small></button><button data-room="dorm" aria-label="Shared dorm room" aria-pressed="false"><strong>Shared dorm room</strong><small>Triple-room example</small></button></div><span class="sample-label">CAL POLY–INSPIRED</span></div>
+        <div class="scene-wrap" id="scene-wrap">
+          <canvas id="room-canvas" tabindex="0" aria-label="Interactive 3D dorm room. Drag to rotate, scroll or pinch to zoom. Use arrow keys to rotate and plus or minus to zoom."></canvas>
+          <div class="scene-loading" id="scene-loading"><span class="loader-cube"></span>Opening your room…</div>
+          <div class="scene-message" id="scene-message" role="status" aria-live="polite"></div>
+          <div class="room-caption"><span class="caption-line"></span><span><strong id="room-caption-title">CERRO VISTA APARTMENTS</strong><small id="room-subtitle">Private apartment bedroom · Twin XL bed</small></span></div>
+          <div class="scene-tools" aria-label="Room view controls"><button id="rotate-left" aria-label="Rotate room left" title="Rotate left">↶</button><button id="rotate-right" aria-label="Rotate room right" title="Rotate right">↷</button><span></span><button id="zoom-in" aria-label="Zoom in" title="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out" title="Zoom out">−</button><span></span><button id="reset-view" aria-label="Reset camera view" title="Reset view"><svg viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M7 7h10v10H7Z"/></svg></button></div>
+        </div>
+        <div class="preview-bottom"><span class="drag-hint"><svg viewBox="0 0 24 24"><path d="m5 8-3 4 3 4m14-8 3 4-3 4M3 12h18M8 5l4-3 4 3m-8 14 4 3 4-3M12 3v18"/></svg>Drag to rotate <span>·</span> Scroll to zoom</span><div class="views" role="group" aria-label="Camera angle"><button data-view="room" aria-pressed="true">Room</button><button data-view="bed" aria-pressed="false">Bed</button><button data-view="closet" aria-pressed="false">Closet</button><button data-view="top" aria-pressed="false">Top</button></div></div>
+        <div class="housing-description" id="housing-description">Your own bedroom, with kitchen and bathrooms shared in the apartment.</div>
+        <div class="context-note"><span aria-hidden="true">ⓘ</span> Representative layout; rooms vary. Furniture is shown for context.</div>
+      </section>
+
+      <aside class="config-panel" aria-label="Configure your essentials">
+        <div class="config-header"><div class="eyebrow">MAKE YOURSELF AT HOME</div><div class="config-title"><h2>Build your kit</h2><span id="count-pill">5 items</span></div><p>Only the things you need.</p></div>
+        <div class="config-content">
+          <section class="preset-section"><div class="section-heading"><h3>A place to start</h3><span>01</span></div><div class="presets" role="group" aria-label="Kit starting point"><button data-preset="night" aria-pressed="true"><span>☾</span> First night</button><button data-preset="week" aria-pressed="false"><span>☼</span> First week</button><button data-preset="empty" aria-pressed="false">Build my own</button></div></section>
+          <section class="color-section"><div class="section-heading"><h3>Your bedding color</h3><span>02</span></div><div class="color-line"><div class="swatches" id="swatches" role="group" aria-label="Bedding color"></div><span id="color-name">Mustang green</span></div><div class="color-note" id="color-note">Your bedding and towel accents update together.</div></section>
+          <section class="items-section"><div class="section-heading"><h3>Make room for you</h3><span>03</span></div><div class="category-tabs" role="group" aria-label="Item categories"><button data-category="essentials" aria-pressed="true">First-night essentials <span>5</span></button><button data-category="extras" aria-pressed="false">Useful extras <span>9</span></button></div><div id="items-list" class="items-list"></div></section>
+        </div>
+        <div class="kit-total"><div class="total-line"><div><span>Your kit estimate</span><small id="selection-count">5 items selected</small></div><strong id="kit-total">$132</strong></div><button id="review-button" class="primary-button">Review my kit <span aria-hidden="true">↗</span></button><p>Illustrative prices · No purchase or payment</p></div>
+      </aside>
+    </div>
+    <footer class="page-footer"><span>DORM DROP SLO <span class="footer-diamond" aria-hidden="true"><img src="./assets/dorm-drop-mark.svg" alt="" width="18" height="18"></span> ARRIVE A LITTLE MORE READY.</span><span>Pick it. See it. Make it yours.</span></footer>
+  </main>
+
+  <dialog id="review-dialog" aria-labelledby="review-title"><div class="dialog-header"><div><div class="eyebrow">YOUR FRESH START</div><h2 id="review-title">Your room, packed.</h2></div><button class="icon-button" id="close-review" aria-label="Close kit review">×</button></div><p class="review-description" id="review-description"></p><div class="review-empty" id="review-empty" hidden>Your kit is empty. Add a few essentials to get started.</div><div id="review-list"></div><div class="review-total"><span>Estimated kit total</span><strong id="review-total"></strong></div><div class="review-note">These are concept prices, before any tax or delivery fee. This prototype does not place an order.</div><div class="dialog-actions"><button id="save-kit" class="primary-button">Save this setup <span aria-hidden="true">↓</span></button><button id="copy-kit" class="secondary-button">Copy kit list</button></div><p class="save-message" id="save-message" role="status" aria-live="polite"></p><textarea id="copy-fallback" aria-label="Kit list to copy" readonly hidden></textarea></dialog>
+  <div id="global-message" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

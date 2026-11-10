@@ -1,0 +1,3 @@
+.product-shot{display:block;aspect-ratio:1;background-image:url('./assets/product-atlas.png');background-repeat:no-repeat;background-size:400% 300%;background-position:var(--product-x) var(--product-y);mix-blend-mode:multiply;flex-shrink:0}
+.product-shot-shoe-rack{background-image:url('./assets/shoe-rack.png');background-size:contain;background-position:center}
+.product-shot-closet-organizer{background-image:url('./assets/closet-organizer.png');background-size:contain;background-position:center}

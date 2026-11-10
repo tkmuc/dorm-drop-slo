@@ -1,0 +1,11 @@
+{
+  "name": "dorm-drop-slo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portable static Dorm Drop SLO concept website for GitHub Pages.",
+  "scripts": {
+    "check": "node --check app.js && node --check catalog.js && node --check room-model.js && node --check commerce.js && node --check site.js && node --check products.js",
+    "test": "node --test tests/commerce.test.js"
+  }
+}
